@@ -1,0 +1,136 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/buttonpro.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/cssprogress.css" />
+    <link rel="stylesheet" href="css/buttn.css" />
+    <link rel="stylesheet" href="css/style-new.css" />
+    <link href="https://fonts.googleapis.com/css?family=Amiri|Cairo|Changa|Katibeh|Lateef|Reem+Kufi|Scheherazade" rel="stylesheet"/>
+    <title>الاعدادات</title>
+</head>
+<body>
+<div class="min"></div><link rel="stylesheet" href="./js/minified/themes/default.min.css" type="text/css" />
+		<script
+		  src="https://code.jquery.com/jquery-3.1.0.min.js"
+		  integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+		  crossorigin="anonymous"></script>
+		<script src="./js/minified/jquery.sceditor.bbcode.min.js"></script>
+        <script src="./js/minified/languages/ar.js"></script>
+		<script>
+			var loadCSS = function(url, callback){
+				var link = document.createElement('link');
+				link.type = 'text/css';
+				link.rel = 'stylesheet';
+				link.href = url;
+				link.id = 'theme-style';
+
+				document.getElementsByTagName('head')[0].appendChild(link);
+
+				var img = document.createElement('img');
+				img.onerror = function(){
+					if(callback) callback(link);
+				}
+				img.src = url;
+			}
+            
+			$(function() {
+				var initEditor = function() {
+					$('textarea').sceditor({
+						plugins: 'bbcode',
+                        locale : "ar",
+						style: './minified/jquery.sceditor.default.min.css',
+                        //colors: '#ffff00,#ff00ff,#00ffff|#ff0000,#00ff00,#0000ff',
+                        
+                        toolbar: "left,center,right|bold,color|ltr,rtl|link,image,youtube|maximize,source,removeformat",
+                        
+					});
+                    $('textarea').sceditor('instance').css('body { direction: rtl;text-align: right; }');
+                    
+				};
+				initEditor();
+			});
+		</script>
+<script language="JavaScript" type="text/javascript">
+function settings_udid(){
+
+
+var u_text = $('textarea').sceditor('instance').val();
+var u_active = document.querySelector('input[name="u_active"]:checked').value;
+
+var formdata = new FormData();
+
+     formdata.append("u_active", u_active);
+     formdata.append("u_text", u_text);
+     formdata.append("us_id", "1186");
+     formdata.append("us_key", "WyJbYXwKgDURhZ5OLqoeE3krNIuaxH");
+     var ajax = new XMLHttpRequest();
+	 ajax.open("POST", "https://s1.p4ipa.com/js_udid.php");
+     ajax.onreadystatechange = function() {
+        if(ajax.readyState == 4 && ajax.status == 200) {
+            var return_data = ajax.responseText;
+            if( search_return_data ("this_true",return_data) == true ){
+                document.getElementById("msg_url").innerHTML = return_data;
+                document.getElementById('form_url').style.display = "none";
+            }else{
+                document.getElementById("msg_url").innerHTML = return_data;
+                document.getElementById('form_url').style.display = "block";
+            }
+        }
+    }
+	ajax.send(formdata);
+    document.getElementById('form_url').style.display = "none";
+    document.getElementById("msg_url").innerHTML = '<p style="text-align: center;"><img src="images/loaders/preload.gif" /><br />جاري رفع البيانات...</p>';
+}
+function search_return_data(re, str){
+    if (str.search(re) != -1){
+        return true;
+    } else {
+        return false;
+    }
+}
+</script>
+
+
+<div id="msg_url"></div>
+<br />
+ 
+<div id="form_url">
+
+<!-- content-box -->
+<div class='content-box'>
+<div class='content-box-h4'>
+صفحة UDID
+</div>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="border_td_top_bottom">
+
+<tr><td class="content-e">
+حالة الصفحة
+</td><td colspan="3" class="content-d">
+<input type="radio" name="u_active" value="1" checked /> <label>تفعيل</label> &nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="u_active" value="0" /> <label>ايقاف</label>
+</td></tr>
+
+
+<tr><td class="content-e">
+معلومات اضافية
+</td><td colspan="3" class="content-d">
+<textarea name="u_text" id="u_text" style="height:200px;direction: rtl;text-align: right;">[center]alharbistore.tk[/center]</textarea>
+</td></tr>
+
+<!-- SER -->
+
+</table>
+
+<div class="content-box-bottom">
+<input class="buttonPro blue" type="submit" name="submit" onclick="settings_udid()" value="حفظ"/>
+</div>
+<div class='clear'></div>
+</div>
+</div>
+
+<br />
+<br />
